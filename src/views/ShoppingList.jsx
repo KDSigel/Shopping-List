@@ -3,8 +3,9 @@ import InputItem from '../components/InputItem/InputItem'
 import ListOfItems from '../components/ListOfItems/ListOfItems'
 
 const initialValue = [
-    {id: 0,
-    itemName: 'pear'
+    {
+        id: 0,
+        itemName: 'pear'
     }
 ]
 
@@ -18,10 +19,14 @@ function itemReducer(items, action) {
             }]
             }
         case 'edit': {
-            //edit logic to change state
+            return items.map((item) => {
+                if (item.id === action.id) {
+                    item.itemName = action.itemName
+                }
+                return item
+            })
         }
         case 'delete': {
-            // delete logic for changing state
             return items.filter((item) => item.id !== action.id)
         }
 
@@ -35,6 +40,7 @@ function itemReducer(items, action) {
 export default function ShoppingList() {
 
 const [items, dispatch] = useReducer(itemReducer, initialValue)
+
 const [oneItem, setOneItem] = useState('')
 
 const addItem = (e) => {
@@ -52,6 +58,14 @@ const deleteItem = (id) => {
 })
 }
 
+const editItem = (id, newContent) => {
+    dispatch({
+        type: 'edit',
+        id,
+        itemName: newContent
+    })
+}
+
     return (
         <div>
             <h1>Shopping List!</h1>
@@ -61,6 +75,7 @@ const deleteItem = (id) => {
                 setOneItem={setOneItem}
             />
             <ListOfItems 
+                editItem={editItem}
                 deleteItem={deleteItem}
                 items={items}
             />
