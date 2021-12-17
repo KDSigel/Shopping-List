@@ -49,6 +49,7 @@ const addItem = (e) => {
     type: 'add',
     itemName: oneItem
 })
+setOneItem('')
 }
 
 const deleteItem = (id) => {

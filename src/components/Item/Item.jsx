@@ -10,15 +10,16 @@ export default function Item({individualItem, deleteItem, editItem}) {
             {individualItem.itemName}
             {editing 
             ?   <>
-                    <input onChange={(e) => setNewContent(e.target.value)} value={newContent} />
-                    <button onClick={() => {
+                    <input aria-label='edit-input' onChange={(e) => setNewContent(e.target.value)} value={newContent} />
+                    <button aria-label='save-btn'
+                        onClick={() => {
                         setEditing(false),
                         editItem(individualItem.id, newContent)
                         }}>save</button>
                 </>
-            : <button onClick={() => setEditing(true)}>edit</button>
+            : <button aria-label='edit-btn' onClick={() => setEditing(true)}>edit</button>
             }
-            <button onClick={() => deleteItem(individualItem.id)}>delete</button>
+            <button aria-label='delete-btn' onClick={() => deleteItem(individualItem.id)}>delete</button>
         </div>
     )
 }
